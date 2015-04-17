@@ -1,8 +1,0 @@
-# Browser Caching
-
-FileETag MTime Size
-
-<IfModule expires_module>
-    ExpiresActive on
-    ExpiresDefault "access plus 5 minutes"
-</IfModule>
