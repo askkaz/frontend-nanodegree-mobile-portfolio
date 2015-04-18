@@ -483,8 +483,12 @@ console.log("Time to generate pizzas on load: " + timeToGenerate[0].duration + "
     window.performance.mark("mark_start_frame");
     var thisScrollTop = document.body.scrollTop;
     var items = document.querySelectorAll('.mover');
+    var phases=[];
+    for (var j = 0; j < 5; j++) {
+      phases[j]=Math.sin((thisScrollTop / 1250) + (j % 5));
+    }
     for (var i = 0; i < items.length; i++) {
-      var phase = Math.sin((thisScrollTop / 1250) + (i % 5));
+      var phase = phases[(i % 5)];
       items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
 
