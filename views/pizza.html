@@ -63,62 +63,8 @@
     background-color: rgba(240, 60, 60, 0.8);
   }
   </style>
-  <script>
-  // Iterator for number of times the pizzas in the background have scrolled.
-  // Used by updatePositions() to decide when to log the average time per frame
-  var frame = 0;
-
-  // Logs the average amount of time per 10 frames needed to move the sliding background pizzas on scroll.
-  function logAverageFrame(times) {   // times is the array of User Timing measurements from updatePositions()
-    var numberOfEntries = times.length;
-    var sum = 0;
-    for (var i = numberOfEntries - 1; i > numberOfEntries - 11; i--) {
-      sum = sum + times[i].duration;
-    }
-    console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
-  }
-
-  // Moves the sliding background pizzas based on scroll position
-  function updatePositions() {
-    frame++;
-    window.performance.mark("mark_start_frame");
-    var thisScrollTop = document.body.scrollTop;
-    var items = document.querySelectorAll('.mover');
-    for (var i = 0; i < items.length; i++) {
-      var phase = Math.sin((thisScrollTop / 1250) + (i % 5));
-      items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-    }
-
-  // User Timing API to the rescue again. Seriously, it's worth learning.
-  // Super easy to create custom metrics.
-  window.performance.mark("mark_end_frame");
-  window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
-  if (frame % 10 === 0) {
-    var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
-    logAverageFrame(timesToUpdatePosition);
-  }
-}
-
-// runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
-
-// Generates the sliding pizzas when the page loads.
-document.addEventListener('DOMContentLoaded', function() {
-  var cols = 8;
-  var s = 256;
-  for (var i = 0; i < 200; i++) {
-    var elem = document.createElement('img');
-    elem.className = 'mover';
-    elem.src = "images/pizza.png";
-    elem.style.height = "100px";
-    elem.style.width = "73.333px";
-    elem.basicLeft = (i % cols) * s;
-    elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
-  }
-  updatePositions();
-});
-</script>
+  <script>function logAverageFrame(e){for(var r=e.length,a=0,t=r-1;t>r-11;t--)a+=e[t].duration;console.log("Average time to generate last 10 frames: "+a/10+"ms")}function updatePositions(){frame++,window.performance.mark("mark_start_frame");for(var e=document.body.scrollTop,r=document.querySelectorAll(".mover"),a=0;a<r.length;a++){var t=Math.sin(e/1250+a%5);r[a].style.left=r[a].basicLeft+100*t+"px"}if(window.performance.mark("mark_end_frame"),window.performance.measure("measure_frame_duration","mark_start_frame","mark_end_frame"),frame%10===0){var o=window.performance.getEntriesByName("measure_frame_duration");logAverageFrame(o)}}var frame=0;window.addEventListener("scroll",updatePositions),document.addEventListener("DOMContentLoaded",function(){for(var e=8,r=256,a=0;200>a;a++){var t=document.createElement("img");t.className="mover",t.src="images/pizza.png",t.style.height="100px",t.style.width="73.333px",t.basicLeft=a%e*r,t.style.top=Math.floor(a/e)*r+"px",document.querySelector("#movingPizzas1").appendChild(t)}updatePositions()});
+  </script>
 </head>
 
 <body>
