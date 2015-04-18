@@ -1,8 +1,6 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-
-  <link async rel="stylesheet" href="css/bootstrap-grid.css">
   <meta name=viewport content="width=device-width, initial-scale=1">
   <style>
   * {
@@ -200,6 +198,18 @@
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
   <script async type="text/javascript" src="js/main.min.js"></script>
+
+  <script>
+        var cb = function() {
+          var l = document.createElement('link'); l.rel = 'stylesheet';
+          l.href = 'css/bootstrap-grid.css';
+          var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
+        };
+        var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+        webkitRequestAnimationFrame || msRequestAnimationFrame;
+        if (raf) raf(cb);
+        else window.addEventListener('load', cb);
+        </script>
 </body>
 
 </html>
